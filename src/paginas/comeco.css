@@ -1,0 +1,520 @@
+@font-face {
+  font-family: 'CyGroteskWide';
+  src: url('/fonts/CyGroteskWide-Bold.woff2') format('woff2'),
+       url('/fonts/CyGroteskWide-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* ===== ANIMAÇÕES DE ENTRADA ===== */
+@keyframes imgRiseUp {
+  from {
+    transform: translateY(60px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes textDropDown {
+  from {
+    transform: translateY(-48px) scaleX(0.83) scaleY(0.82);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scaleX(0.83) scaleY(0.82);
+    opacity: 1;
+  }
+}
+
+@keyframes subDropDown {
+  from {
+    transform: translateY(-32px) scaleY(0.82);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scaleY(0.82);
+    opacity: 1;
+  }
+}
+
+@keyframes navSlideRight {
+  from {
+    transform: translateX(80px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* ===== SEÇÃO PRINCIPAL ===== */
+#comeco {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  background-image: url('/industria.png');
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  background-color: #ffffff;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: clip;
+  overflow-x: visible;
+  animation: imgRiseUp 1s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+/* Camada da imagem que cobre o topo do texto (desktop: 45-65%) */
+#comeco::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/industria.png');
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 3;
+  mask-image: linear-gradient(to bottom, black 0%, black 45%, transparent 65%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 45%, transparent 65%);
+}
+
+/* Gradiente escuro na parte inferior */
+#comeco::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.85) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ===== CONTEÚDO ===== */
+.comeco-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  width: 100%;
+  padding: 6vh 2vw 0;
+}
+
+.comeco-title {
+  font-family: 'CyGroteskWide', 'Arial Black', sans-serif;
+  font-size: clamp(5rem, 18vw, 20rem);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  line-height: 0.9;
+  margin: 0 0 -0.25em;
+  color: #132449;
+  text-transform: uppercase;
+  filter: none;
+  transform: scaleX(0.83) scaleY(0.82);
+  transform-origin: top center;
+  animation: textDropDown 0.9s 0.15s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+.comeco-sub {
+  font-family: 'CyGroteskWide', 'Arial Black', sans-serif;
+  font-size: clamp(0.9rem, 2.8vw, 2.4rem);
+  font-weight: 700;
+  color: #132449;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  transform: scaleY(0.82);
+  transform-origin: top center;
+  animation: subDropDown 0.9s 0.3s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+.comeco-title .destaque,
+.comeco-sub .destaque {
+  color: #c97d2a;
+}
+
+
+/* ===== HAMBURGER / NAV TRIGGER ===== */
+.comeco-nav-trigger {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  display: block;
+  outline: none;
+  overflow: hidden;
+  animation: navSlideRight 0.7s 0.45s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+.comeco-nav-trigger .trigger-bg {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  transition: background 0.45s cubic-bezier(0.22,1,0.36,1);
+}
+
+.comeco-nav-trigger .trigger-inner {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  transition:
+    width 0.55s cubic-bezier(0.22,1,0.36,1),
+    height 0.55s cubic-bezier(0.22,1,0.36,1),
+    clip-path 0.55s cubic-bezier(0.22,1,0.36,1),
+    background 0.45s cubic-bezier(0.22,1,0.36,1);
+  background: transparent;
+}
+
+.comeco-nav-trigger .bar {
+  display: block;
+  width: 28px;
+  height: 2px;
+  background-color: #132449;
+  border-radius: 2px;
+  transform-origin: center;
+  transition:
+    width 0.4s cubic-bezier(0.22,1,0.36,1),
+    opacity 0.3s ease,
+    transform 0.45s cubic-bezier(0.22,1,0.36,1),
+    background-color 0.3s ease;
+}
+
+/* Botão fechar só aparece no mobile */
+.nav-close-btn {
+  display: none;
+}
+
+/* Links dentro do retângulo expandido */
+.comeco-nav-trigger .nav-links {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 40px 0 80px;
+  gap: 36px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s 0.1s ease;
+}
+
+.comeco-nav-trigger .nav-links a {
+  font-family: 'CyGroteskWide', 'Arial Black', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #e6f1fb;
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.75;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+.comeco-nav-trigger .nav-links a:hover {
+  opacity: 1;
+}
+
+/* Logo dentro do rect */
+.comeco-nav-trigger .nav-logo {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s 0.1s ease;
+  text-decoration: none;
+}
+
+.comeco-nav-trigger .nav-logo-text {
+  font-family: 'CyGroteskWide', 'Arial Black', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #e6f1fb;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+/* ===== ESTADO EXPANDIDO ===== */
+.comeco-nav-trigger.expanded .trigger-inner {
+  width: 100vw;
+  height: 72px;
+  clip-path: polygon(40px 0%, 100% 0%, 100% 100%, 0% 100%);
+  background: #185fa5;
+}
+
+.comeco-nav-trigger.expanded .bar {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.comeco-nav-trigger.expanded .nav-links {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.comeco-nav-trigger.expanded .nav-logo {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===== VISIBILIDADE SCROLL ===== */
+.comeco-nav-trigger.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+
+/* Tablet: 768px — 1024px */
+@media (max-width: 1024px) {
+  .comeco-content {
+    padding: 7vh 4vw 0;
+  }
+
+  .comeco-sub {
+    letter-spacing: 0.2em;
+  }
+
+  /* Nav expandida fica um pouco menos alta */
+  .comeco-nav-trigger.expanded .trigger-inner {
+    height: 64px;
+  }
+
+  .comeco-nav-trigger .nav-links {
+    gap: 24px;
+    padding: 0 32px 0 72px;
+  }
+
+  .comeco-nav-trigger .nav-links a {
+    font-size: 0.72rem;
+  }
+}
+
+/* Mobile grande: até 768px */
+@media (max-width: 768px) {
+  /* Mantém cover igual ao desktop — foca no centro da indústria */
+  #comeco {
+    background-size: cover;
+    background-position: center 20%;
+    background-repeat: no-repeat;
+    background-color: #ffffff;
+  }
+
+  /* Mesma lógica do desktop: imagem cobre o topo do texto via máscara */
+  #comeco::before {
+    background-size: cover;
+    background-position: center 20%;
+    background-repeat: no-repeat;
+    mask-image: linear-gradient(to bottom, black 0%, black 35%, transparent 58%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 35%, transparent 58%);
+  }
+
+  #comeco::after {
+    background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.88) 100%);
+  }
+
+  .comeco-content {
+    text-align: center;
+    padding: 18vh 0 0 0;
+    overflow: visible;
+    width: 100%;
+  }
+
+  .comeco-title {
+    transform-origin: top center;
+    font-size: clamp(2rem, 17.5vw, 20rem);
+    white-space: nowrap;
+    overflow: visible;
+    width: 100%;
+    letter-spacing: -0.01em;
+    transform: scaleY(0.9);
+    padding: 0;
+    text-align: center;
+  }
+
+  .comeco-sub {
+    transform-origin: top center;
+    transform: none;
+    font-size: clamp(0.65rem, 3.5vw, 1.1rem);
+    letter-spacing: 0.18em;
+    text-align: center;
+  }
+
+  /* Nav expandida ocupa tela toda e empilha links verticalmente */
+  .comeco-nav-trigger.expanded .trigger-inner {
+    width: 100vw;
+    height: 100svh;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    background: #185fa5;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0;
+  }
+
+  .comeco-nav-trigger .nav-links {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0 0 0 48px;
+    gap: 20px;
+    height: 100%;
+    width: 100%;
+  }
+
+  .comeco-nav-trigger .nav-links a {
+    font-size: 1.3rem;
+    letter-spacing: 0.06em;
+    opacity: 0.85;
+  }
+
+  .comeco-nav-trigger .nav-logo {
+    top: 20px;
+    transform: none;
+    left: 16px;
+  }
+
+  /* Botão X para fechar o menu mobile */
+  .nav-close-btn {
+    display: block;
+    background: none;
+    border: none;
+    color: #e6f1fb;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 12px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    align-self: flex-start;
+  }
+
+  .nav-close-btn:hover {
+    opacity: 1;
+  }
+
+  /* Botão fechar (X) no mobile quando expandido */
+  .comeco-nav-trigger.expanded .bar:nth-child(1) {
+    opacity: 1;
+    transform: translateY(8px) rotate(45deg);
+    background-color: #e6f1fb;
+    width: 24px;
+  }
+
+  .comeco-nav-trigger.expanded .bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .comeco-nav-trigger.expanded .bar:nth-child(3) {
+    opacity: 1;
+    transform: translateY(-8px) rotate(-45deg);
+    background-color: #e6f1fb;
+    width: 24px;
+  }
+
+  /* Posiciona o X no canto superior direito do painel aberto */
+  .comeco-nav-trigger.expanded .trigger-inner > .bar {
+    position: absolute;
+    right: 24px;
+    top: 28px;
+    width: 24px;
+  }
+}
+
+/* Mobile pequeno: até 480px */
+@media (max-width: 480px) {
+  #comeco {
+    background-size: cover;
+    background-position: center 20%;
+  }
+
+  #comeco::before {
+    background-size: cover;
+    background-position: center 20%;
+    mask-image: linear-gradient(to bottom, black 0%, black 30%, transparent 52%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 30%, transparent 52%);
+  }
+
+  #comeco::after {
+    background: linear-gradient(to bottom, transparent 38%, rgba(0, 0, 0, 0.9) 100%);
+  }
+
+  .comeco-content {
+    padding: 20vh 0 0 0;
+  }
+
+  .comeco-sub {
+    font-size: clamp(0.55rem, 4vw, 0.9rem);
+    letter-spacing: 0.12em;
+    text-align: center;
+  }
+}
+
+/* Telas muito pequenas: até 360px */
+@media (max-width: 360px) {
+  .comeco-sub {
+    letter-spacing: 0.08em;
+  }
+
+  .comeco-nav-trigger .nav-links a {
+    font-size: 1.1rem;
+  }
+}
+
+/* Landscape no mobile (altura curta) */
+@media (max-height: 500px) and (orientation: landscape) {
+  .comeco-content {
+    padding: 3vh 4vw 0;
+  }
+
+  /* Em landscape, a nav expandida fica horizontal mesmo no mobile */
+  .comeco-nav-trigger.expanded .trigger-inner {
+    height: 60px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .comeco-nav-trigger.expanded .nav-links {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 40px 0 80px;
+    gap: 20px;
+    height: 100%;
+  }
+
+  .comeco-nav-trigger.expanded .nav-links a {
+    font-size: 0.7rem;
+  }
+
+  .comeco-nav-trigger.expanded .bar:nth-child(1),
+  .comeco-nav-trigger.expanded .bar:nth-child(3) {
+    position: static;
+  }
+
+  .comeco-nav-trigger .nav-logo {
+    top: 50%;
+    transform: translateY(-50%);
+    left: 16px;
+  }
+}
